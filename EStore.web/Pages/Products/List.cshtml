@@ -1,0 +1,38 @@
+﻿@page
+@model EStore.web.Pages.Products.ListModel
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<h2 class="mt-5">All your products</h2>
+
+<div class="mt-5">
+    <a href="/Products/Add" class="btn btn-primary"><i class="fa-sharp fa-solid fa-plus"></i> ADD NEW</a>
+</div>
+
+<div class="mt-5">
+
+    @if(Model.showAllProducts != null && Model.showAllProducts.Any())
+    {       
+       foreach(var product in Model.showAllProducts)
+        {            
+            <div class="border mb-4 bg-light p-2 rounded">                
+                <div class="fw-bold"><a href="/Products/Product/@product.Id">@product.Title</a></div>                      
+                <div class="fst-italic">@product.Description</div>                      
+                <div class="fw-bold mt-1"><h4>$@product.Price</h4></div>                      
+                <div>@product.PicURL</div> 
+                <div class="mt-2">Category: @product.Category</div>
+                <hr />
+                <div class="row">
+                    <div class="col">Last modified - <i class="fa-regular fa-calendar-days"></i> @product.PostedDate.ToString().Split(" ")[0]</div>
+                    <div class="col text-end"><a href="/Products/Edit/@product.Id"><i class="fa-solid fa-pencil"></i> Edit</a></div>
+                </div>                
+            </div>
+        }
+    }
+    else
+    {
+        <p>(0) products found!</p>
+    }
+
+</div>

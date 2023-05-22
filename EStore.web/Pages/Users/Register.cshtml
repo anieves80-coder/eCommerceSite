@@ -1,0 +1,30 @@
+﻿@page
+@model EStore.web.Pages.Users.RegisterModel
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<h2 class="mt-5">Register</h2>
+<form class="mt-5" method="post" oninput='up2.setCustomValidity(up2.value != $("#pwdRegister").val() ? "Passwords do not match." : "")'>
+  <div class="mb-3">
+    <label for="usernameRegister" class="form-label"><i class="fa-solid fa-user"></i> Username</label>
+    <input type="text" class="form-control" id="usernameRegister" asp-for="Registration.Username" required>    
+  </div>
+  <div class="mb-4">
+    <label for="emailRegister" class="form-label"><i class="fa-solid fa-envelope"></i> Email address</label>
+    <input type="email" class="form-control" id="emailRegister" asp-for="Registration.Email" required>
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-4">
+    <label for="pwdRegister" class="form-label"><i class="fa-solid fa-lock-open"></i> Password</label>
+    <input type="password" class="form-control" id="pwdRegister" asp-for="Registration.Password" required>
+  </div>
+  <div class="mb-5 ">
+    <label for="pwdRegisterConfirm" class="form-label"><i class="fa-solid fa-lock-open"></i> Confirm Password</label>
+    <input type="password" class="form-control" id="pwdRegisterConfirm" name=up2 required>
+  </div>
+ 
+  <div>
+    <button type="submit" class="btn btn-primary me-3"><i class="fa-solid fa-pencil"></i> Register</button><a href="/Users/Login" class="btn btn-outline-success me-3"><i class="fa-solid fa-user"></i> Login</a>
+  </div>
+</form>

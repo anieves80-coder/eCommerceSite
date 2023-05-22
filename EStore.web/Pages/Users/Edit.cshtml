@@ -1,0 +1,72 @@
+﻿@page "/Users/Edit/{Id?}"
+@model EStore.web.Pages.Users.EditModel
+
+
+<h2 class="mt-5">Edit Profile</h2>
+<partial name="_Notification" />
+<form class="mt-5" method="post">
+  <div class="mb-3">
+    <label class="form-label"><i class="fa-solid fa-id-card"></i> Id</label>
+    <input type="text" class="form-control" asp-for="EditUserViewModel.Id" value="@Model.EditUserViewModel.Id" readonly>    
+  </div>
+  <div class="mb-3">
+    <label for="usernameRegister" class="form-label"><i class="fa-solid fa-user"></i> Username</label>
+    <input type="text" class="form-control" id="usernameRegister" asp-for="EditUserViewModel.UserName" value="@Model.EditUserViewModel.UserName" required> 
+    <span class="text-danger" asp-validation-for="EditUserViewModel.UserName"></span>
+  </div>
+  <div class="mb-4">
+    <label for="emailRegister" class="form-label"><i class="fa-solid fa-envelope"></i> Email address</label>
+    <input type="email" class="form-control" id="emailRegister" asp-for="EditUserViewModel.Email" value="@Model.EditUserViewModel.Email" required>    
+    <span class="text-danger" asp-validation-for="EditUserViewModel.Email"></span>
+  </div>  
+  <div>
+    <button type="submit" class="btn btn-primary me-3"><i class="fa-solid fa-pencil"></i> Update</button>    
+    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"><i class="fa-sharp fa-solid fa-trash"></i> Delete</button>
+  </div>
+  <div class="mt-4 text-primary"><a href="#" data-bs-toggle="modal" data-bs-target="#passwordModal"><i class="fa-solid fa-lock"></i> Change Password</a></div>
+
+
+   <!-- UPDATE PASSWORD MODAL -->
+    <div class="modal" tabindex="-1" id="passwordModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">                
+                <div class="mb-4">
+                    <label for="pwdRegister" class="form-label"><i class="fa-solid fa-lock-open"></i> New Password</label>
+                    <input type="password" class="form-control" id="pwdRegister" asp-for="@Model.newPwd">
+                </div>
+                <div class="mb-5 ">
+                    <label for="pwdRegisterConfirm" class="form-label"><i class="fa-solid fa-lock-open"></i> Confirm Password</label>
+                    <input type="password" class="form-control" id="pwdRegisterConfirm" asp-for="@Model.confirmNewPwd" >
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="pwdBtn" type="submit" asp-page-handler="Update"><i class="fa-solid fa-pencil"></i> Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- CONFIRMATION MODAL -->
+        <div class="modal" tabindex="-1" id="confirmDeleteModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete your account?</p>                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-danger" id="submitBtn" type="submit" asp-page-handler="Delete"><i class="fa-solid fa-trash"></i> DELETE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</form>

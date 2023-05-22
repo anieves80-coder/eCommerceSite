@@ -1,0 +1,25 @@
+﻿@page 
+@model EStore.web.Pages.Users.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<h2 class="mt-5">Login</h2>
+
+<partial name="_Notification" />
+
+<form class="mt-5" method="post">
+  <div class="mb-3">
+    <label for="usernameLogin" class="form-label"><i class="fa-solid fa-user"></i> Username</label>
+    <input type="text" class="form-control" id="usernameLogin" asp-for="LoginViewModel.Username" required>    
+  </div>
+  <div class="mb-5 ">
+    <label for="pwdLogin" class="form-label"><i class="fa-solid fa-lock-open"></i> Password</label>
+    <input type="password" class="form-control" id="pwdLogin" asp-for="LoginViewModel.Password" required>
+  </div>
+ 
+  <div>
+    <button type="submit" class="btn btn-primary me-3"><i class="fa-solid fa-user"></i> Login</button><a href="/Users/Register" class="btn btn-outline-success me-3"><i class="fa-solid fa-pencil"></i> Register</a>
+  </div>
+</form>

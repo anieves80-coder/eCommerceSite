@@ -1,0 +1,111 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="mt-3 mb-5">
+    <div class=""><h1 class="">Welcome to <b>e</b>STORE</h1></div>
+    <div class=""><p class="fst-italic">Your one stop shop for all your electronics needs.</p></div>            
+</div>
+
+<nav class="navbar bg-body-tertiary bg-light mb-3">
+  <div class="container-fluid ps-3">
+    <h5>SHOP NOW</h5>
+    <form class="d-flex" role="search">
+       <div class="me-2">
+          <select class="form-select" id="catSelect" required>
+              <option selected>Category</option>
+              <option value="TV">TV</option>
+              <option value="COMPUTERS">Computers</option>
+              <option value="CELLPHONES">Cellphones</option>
+              <option value="VIDEOGAMES">Videogames</option>
+          </select>
+      </div>      
+    </form>
+  </div>
+</nav>
+
+<div class="row mt-4 ms-1" id="mainCatDiv">
+    <div class="col">
+        <div class="card mb-3" style="width: 18rem;">
+             <img src="https://images.pexels.com/photos/5211580/pexels-photo-5211580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top cust-card-image" alt="TV image url" data-cat="TV">
+             <div class="card-body text-center">
+                 <h3>TVs</h3>
+             </div>
+         </div>
+     </div>
+     <div class="col">
+         <div class="card mb-3" style="width: 18rem;">
+             <img src="https://images.pexels.com/photos/3929452/pexels-photo-3929452.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top cust-card-image" alt="Computer image url" data-cat="COMPUTERS">
+             <div class="card-body text-center">
+                 <h3>COMPUTERS</h3>
+             </div>
+         </div>
+     </div>
+     <div class="col">
+         <div class="card mb-3" style="width: 18rem;">
+             <img src="https://images.pexels.com/photos/837268/pexels-photo-837268.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top cust-card-image" alt="Cellphones image url" data-cat="CELLPHONES">
+             <div class="card-body text-center">
+                 <h3>CELLPHONES</h3>
+             </div>
+         </div>
+     </div>
+     <div class="col">
+         <div class="card mb-3" style="width: 18rem;">
+             <img src="https://images.pexels.com/photos/4511373/pexels-photo-4511373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="card-img-top cust-card-image" alt="Videogames image url" data-cat="VIDEOGAMES">
+             <div class="card-body text-center">
+                 <h3>VIDEOGAMES</h3>
+             </div>
+         </div>
+     </div>
+</div>
+
+<div id="searchResults"></div>
+
+
+@section Scripts {
+    <script>
+
+        async function getProducts(criteria){
+            const res = await $.get(`api/search/${criteria}`);
+            
+            if(res.length > 0){
+                $("#mainCatDiv").hide();
+                $('#searchResults').append(`<a href="/" class="btn btn-dark mb-3 ms-1">Clear Results</a>`);
+                 for(let i in res){                           
+                    $('#searchResults').append(`
+                        <div class="row p-3 mb-3 mx-1 results-product" id="${res[i].id}">                            
+                            <div class="col-lg-4">
+                                <img class="imgIcon" src="${res[i].picURL}" />
+                            </div>
+                            <div class="col">
+                                <div class="row fw-bold mb-1">${res[i].title}</div>
+                                <div class="row fst-italic">${res[i].description}</div>
+                                <div class="row mt-2 text-success fw-bold">$${res[i].price}</div>                            
+                            </div>   
+                        </div>                               
+                    `);
+                 }
+            }      
+            else
+               $("#mainCatDiv").show();
+        }
+
+        $('#catSelect').change(function() {
+            $('#searchResults').empty();
+            getProducts($(this).val());
+        });
+
+        $('.cust-card-image').on('click', function(){                        
+            getProducts($(this).data('cat'));
+        });
+
+        $('#searchResults').on('click', '.results-product', function(){
+            const id = $(this).attr('id');
+            window.location.href = `/Products/Product/${id}`;
+        });
+       
+    </script>
+}

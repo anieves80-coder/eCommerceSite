@@ -1,0 +1,52 @@
+﻿@page
+@model EStore.web.Pages.AddModel
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h2 class="mt-5">Add a Product</h2>
+<form class="mt-5" method="post">
+  <div class="mb-3">
+    <label for="titleAdd" class="form-label"><i class="fa-solid fa-pencil"></i> Title</label>
+    <input type="text" class="form-control" id="titleAdd" asp-for="Product.Title" required>   
+    <span class="text-danger" asp-validation-for="Product.Title"></span>
+  </div>
+
+  <div class="mb-4">
+      <label for="descriptionAdd" class="form-label"><i class="fa-solid fa-paragraph"></i> Description</label>
+      <textarea class="form-control" id="descriptionAdd" style="height: 100px" asp-for="Product.Description" required></textarea>
+      <span class="text-danger" asp-validation-for="Product.Description"></span>
+  </div>
+
+  <div class="row">
+      <div class="col">
+          <div class="input-group">
+            <span class="input-group-text">http://</span>    
+            <input type="text" class="form-control" placeholder="Copy the image URL here" asp-for="Product.PicURL" required><br/>            
+          </div>
+          <span class="text-danger form-label" asp-validation-for="Product.PicURL"></span>
+      </div>
+      <div class="col-3">
+          <div class="input-group">
+            <span class="input-group-text">$</span>    
+            <input type="number" class="form-control" min="0.01" step="0.01" placeholder="Enter the price of the product" asp-for="Product.Price" required>            
+          </div>
+          <span class="text-danger" asp-validation-for="Product.Price"></span>
+      </div>
+      <div class="col-3">
+          <select class="form-select" asp-for="Product.Category" required>
+              <option value="" selected>Category</option>
+              <option value="TV">TV</option>
+              <option value="COMPUTERS">Computers</option>
+              <option value="CELLPHONES">Cellphones</option>
+              <option value="VIDEOGAMES">Videogames</option>
+          </select>
+          <span class="text-danger" asp-validation-for="Product.Category"></span>
+      </div>
+      
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-primary mt-4" type="submit"><i class="fa-sharp fa-solid fa-plus"></i> ADD</button>
+  </div>
+  <input type="text" asp-for="Product.Owner" value="" hidden> 
+</form>
